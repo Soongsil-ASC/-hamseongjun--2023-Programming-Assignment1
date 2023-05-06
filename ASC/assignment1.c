@@ -63,7 +63,6 @@ int main(void) {
                     if(points < 0){     //monster
                         map[row][col].occupier = MONSTER_TYPE;
                         map[row][col].points = points;
-                        //printf("---------------Tesint------------------\n");
                     }
                     else if(points > 0){//healing potion
                         map[row][col].occupier = HEALING_TYPE;
