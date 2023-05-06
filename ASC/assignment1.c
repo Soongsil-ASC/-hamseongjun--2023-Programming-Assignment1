@@ -87,11 +87,11 @@ int main(void) {
     while(1){
         scanf(" %c", &command);
         
-        if(command == 'c') {
+        if(command == 'c') {    //Cheat Map
             print_cheat_map(map);
             printf("\n");
         }
-        else if(command == 'q') {
+        else if(command == 'q') {//Quit
             printf("Exiting Program!\n");
             break;
         }
