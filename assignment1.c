@@ -25,7 +25,8 @@ struct location {
 };
 
 // Your structs here
-
+#define MIN_POINT -9
+#define MAX_POINT 9
 // Provided functions use for game setup
 // You do not need to use these functions yourself.
 void init_map(struct location map[SIZE][SIZE]);
@@ -57,25 +58,26 @@ int main(void) {
             printf("[points] [row] [col]\n");
         }                   
         scanf(" %d %d %d", &points, &row, &col);
-        if((row <= 7 && row >= 0) && (col >= 0 && col <= 7)){                   //Do not leave the corresponding row, col on the 8x8 map
-            if(points >= -9 && points <= 9){            //Damage/Healing point must not be outside the -9 to 9 range
-                if(!(row == 7 && col == 0)){               //No other piece can be placed in the player coordinate (7, 0) position.
-                    if(points < 0){     //monster
-                        map[row][col].occupier = MONSTER_TYPE;
-                        map[row][col].points = points;
-                    }
-                    else if(points > 0){//healing potion
-                        map[row][col].occupier = HEALING_TYPE;
-                        map[row][col].points = points;
-                    }
-                    else {  //boulder
-                        map[row][col].occupier = BOULDER_TYPE;
-                        map[row][col].points = EMPTY_POINTS;
-                    }
-                }
-            }
+        if(row < 0 || row > (SIZE-1)
+        || col < 0 || col > (SIZE-1)
+        || points < MIN_POINT || points > MAX_POINT
+        || (row == PLAYER_STARTING_ROW && col == PLAYER_STARTING_COL)) {    //invalid input
+            continue;
+        }
+        else if(points < 0) {     //monster
+            map[row][col].occupier = MONSTER_TYPE;
+            map[row][col].points = points;
+        }
+        else if(points > 0) {    //healing potion
+            map[row][col].occupier = HEALING_TYPE;
+            map[row][col].points = points;
+        }
+        else {  //boulder
+            map[row][col].occupier = BOULDER_TYPE;
+            map[row][col].points = EMPTY_POINTS;
         }
     }
+            
     // After the game pieces have been added to the map print out the map.
     print_game_play_map(map);
     printf("\nEXPLORE!\n");
